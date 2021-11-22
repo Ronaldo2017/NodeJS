@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <title>Cadastro de Cursos</title>
+
+    <style>
+        table{
+            border-spacing: 8px;
+            border-collapse: separate;
+        }
+
+        h1{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <h1>=== CURSOS ===</h1>
+
+    <table class="table">
+        <th style="width: 200px;">DESCRIÇÃO</th>
+        <th>CARGA HORÁRIA</th>
+
+        <!-- FAZ O LOOP NOS DADOS QUE VEM DO BD -->
+        <% for(i=0; i < dados.length; i++) { %>
+            <tr>
+                <!-- CAMPOS QUE ESTÃO NO BD, MOSTRA OS DADOS QUE ESTÃO NO BD -->
+                <td>
+                    <%= dados[i].DESCRICAO %>
+                </td>
+                <td>
+                    <%= dados[i].CARGA_HORARIA %>
+                </td>
+                <td>
+                    <a href="/editar/<%= dados[i].ID %>" class="btn btn-success edit">Editar</a>
+                    <a href="/curso/deletar/<%= dados[i].ID %>" class="btn btn-danger delete" onclick="return confirm ('Deseja Exlucir?')">Excluir</a>
+                </td>
+            </tr>
+
+            <% } %>
+
+            <!-- O LAÇO FOR, TEM QUE FICAR DENTRO DA TABELA -->
+    </table>
+
+    <form action="/cursos/salvar" method="post">
+        DESCRIÇÃO   <input type="text" name="DESCRICAO"><br><br>
+        CARGA_HORÁRIA   <input type="text" name="CARGA_HORARIA"><br><br>
+        <input type="submit" value="Adicionar" class="btn btn-primary">
+    </form>
+</body>
+
+</html>
